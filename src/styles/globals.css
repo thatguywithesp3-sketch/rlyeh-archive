@@ -1,0 +1,96 @@
+/* ─── Design tokens as CSS custom properties ─────────────────────────────────
+   Single source of truth for palette + typography.
+   Use these in new code; styled-components that still hard-code values
+   are correct but will be migrated gradually.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Palette */
+  --color-bg:       #000000;
+  --color-accent:   #00FF88;   /* primary green */
+  --color-cyan:     #00D4FF;
+  --color-purple:   #7B2CBF;
+  --color-warning:  #FF006E;
+
+  /* Text */
+  --text-primary:   #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted:     rgba(255, 255, 255, 0.5);
+
+  /* Typography */
+  --font-heading: 'UnifrakturCook', serif;
+  --font-body:    'Univa Nova', sans-serif;
+  --font-mono:    'Univa Nova', monospace;
+
+  /* Glow shadows */
+  --glow-sm: 0 0 20px rgba(0, 255, 136, 0.4), 0 0 40px rgba(0, 255, 136, 0.2);
+  --glow-md: 0 0 30px rgba(0, 255, 136, 0.5), 0 0 60px rgba(0, 255, 136, 0.25);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  margin: 0;
+  font-family: 'Univa Nova', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #000000;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+code {
+  font-family: 'Univa Nova', 'Courier New', monospace;
+  font-style: normal;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 136, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 136, 0.5);
+}
+
+/* Respect reduced motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

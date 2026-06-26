@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+
+# Legacy CRA build output, preserved for reference
+_legacy_build
+
+# Claude Code local settings (user-specific permissions)
+.claude/settings.local.json
