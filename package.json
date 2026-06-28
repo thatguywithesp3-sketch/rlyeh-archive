@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "homepage": "https://thatguywithesp3-sketch.github.io/R-LYEH-ARCHIVE",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

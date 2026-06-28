@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// Served from GitHub Pages under /R-LYEH-ARCHIVE/.
-const BASE = '/R-LYEH-ARCHIVE/';
+// Use VITE_BASE_URL env var to override (e.g. '/R-LYEH-ARCHIVE/' for GitHub Pages).
+// Vercel and local dev both serve from root, so default is '/'.
+const BASE = process.env.VITE_BASE_URL ?? '/';
 
 export default defineConfig({
   base: BASE,
