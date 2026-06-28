@@ -115,7 +115,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Router basename="/R-LYEH-ARCHIVE">
+      <Router basename={import.meta.env.BASE_URL}>
         <ScrollManager lenis={lenisRef} />
         <Routes>
           <Route path="/" element={<Home />} />
