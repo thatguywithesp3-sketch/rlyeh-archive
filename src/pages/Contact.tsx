@@ -293,7 +293,8 @@ const makeReference = (form: FormState): string => {
    paste the key as the fallback below. When unset, the form keeps its in-browser
    confirmation and transmits nothing. */
 const WEB3FORMS_ACCESS_KEY =
-  (import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined) || '';
+  (import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined) ||
+  'f3438a96-c1db-4baa-aad1-8dc2c19e4f6a';
 const WEB3FORMS_ENABLED = WEB3FORMS_ACCESS_KEY.length > 0;
 
 const Contact: React.FC = () => {
