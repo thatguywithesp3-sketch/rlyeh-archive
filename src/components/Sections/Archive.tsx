@@ -160,6 +160,11 @@ const ImageArea = styled.div`
   aspect-ratio: ${IMAGE_ASPECT};
   flex-shrink: 0;
   max-height: 98vh;
+
+  /* On mobile the photographic shelf is replaced by larger vector book links. */
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 /* Нижнє затемнення безпосередньо на книгах — градієнт знизу */
@@ -234,6 +239,90 @@ const HitBox = styled(Link)<{ $left: number; $width: number }>`
   }
 `;
 
+/* Mobile-only: stylised vector "books" replacing the small photographic shelf.
+   Bigger tap targets, drawn as simple book spines. Hidden on desktop. */
+const VectorBooks = styled.nav`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    max-width: 340px;
+    margin: 4px auto 0;
+  }
+`;
+
+const VectorBookLink = styled(Link)`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  aspect-ratio: 3 / 4;
+  padding: 20px 14px;
+  text-decoration: none;
+  border: 1.5px solid rgba(0, 255, 136, 0.45);
+  border-left: 5px solid rgba(0, 255, 136, 0.7); /* spine binding */
+  border-radius: 2px 10px 10px 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 45, 33, 0.55) 0%,
+    rgba(0, 18, 13, 0.82) 100%
+  );
+  box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+
+  /* leather bands across the spine */
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    height: 1px;
+    background: rgba(0, 255, 136, 0.22);
+  }
+  &::before {
+    top: 14px;
+  }
+  &::after {
+    bottom: 14px;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    border-color: #00ff88;
+    box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.5),
+      0 0 22px rgba(0, 255, 136, 0.25);
+  }
+  &:focus-visible {
+    outline: 2px solid #00ff88;
+    outline-offset: 3px;
+  }
+`;
+
+const BookOrnament = styled.span`
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  transform: rotate(45deg);
+  border: 1.5px solid rgba(0, 255, 136, 0.6);
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.25);
+`;
+
+const BookLabel = styled.span`
+  font-family: 'UnifrakturCook', serif;
+  font-size: 1.25rem;
+  line-height: 1.15;
+  text-align: center;
+  color: #00ff88;
+  text-shadow: 0 0 14px rgba(0, 255, 136, 0.4);
+`;
+
 export const ArchiveSection: React.FC<{ transparentBg?: boolean }> = ({ transparentBg }) => {
   const { ref, isIntersecting } = useIntersection({ threshold: 0.1 });
   const [hoveredBook, setHoveredBook] = useState<number | null>(null);
@@ -285,6 +374,14 @@ export const ArchiveSection: React.FC<{ transparentBg?: boolean }> = ({ transpar
       <ContentWrapper>
         <Container>
           <Title $isVisible={isIntersecting}>Archive</Title>
+          <VectorBooks aria-label="Archive categories">
+            {BOOK_LINKS.map((item, index) => (
+              <VectorBookLink key={index} to={item.to} aria-label={item.label}>
+                <BookOrnament aria-hidden="true" />
+                <BookLabel>{item.label}</BookLabel>
+              </VectorBookLink>
+            ))}
+          </VectorBooks>
         </Container>
       </ContentWrapper>
     </Section>
