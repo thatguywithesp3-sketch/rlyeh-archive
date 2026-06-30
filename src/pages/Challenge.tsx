@@ -28,6 +28,18 @@ const RITUAL_STEPS = [
   },
 ];
 
+/* localStorage key — the archive genuinely remembers a completed rite across
+   visits, giving the "recorded your interaction" line literal meaning. */
+const RITE_KEY = 'rlyeh_rite_completed';
+
+const readPriorCompletion = (): boolean => {
+  try {
+    return localStorage.getItem(RITE_KEY) !== null;
+  } catch {
+    return false;
+  }
+};
+
 /* ─── Animations ─── */
 
 const slowRotate = keyframes`
@@ -262,6 +274,71 @@ const WarningLine = styled.p<{ $visible: boolean }>`
   transition: opacity 2s ease-in-out 1s;
 `;
 
+/* Sealed record — the reward, revealed only once the rite is completed.
+   A clinical archive fragment that conceals more than it tells (redactions,
+   indifferent tone) rather than explaining or celebrating. */
+const SealedRecord = styled.div<{ $visible: boolean }>`
+  max-width: 560px;
+  margin: 56px auto 0;
+  padding: 24px 28px;
+  text-align: left;
+  border: 1px solid rgba(0, 255, 136, 0.18);
+  border-left: 2px solid rgba(0, 255, 136, 0.55);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 255, 136, 0.04) 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  opacity: ${p => (p.$visible ? 1 : 0)};
+  transform: ${p => (p.$visible ? 'translateY(0)' : 'translateY(16px)')};
+  transition: opacity 1.6s ease-in-out 1.6s, transform 1.6s ease-in-out 1.6s;
+`;
+
+const SealedEyebrow = styled.p`
+  font-family: 'Univa Nova', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(0, 255, 136, 0.7);
+  margin: 0 0 14px;
+`;
+
+const SealedText = styled.p`
+  font-family: 'Univa Nova', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 12px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+/* Inline redaction — a censored block. Concealment over explanation. */
+const Redaction = styled.span`
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.18);
+  color: transparent;
+  border-radius: 1px;
+  user-select: none;
+  vertical-align: baseline;
+`;
+
+/* Restrained acknowledgement shown to a returning visitor whose rite the
+   archive already holds on record. */
+const ReturnNote = styled.p<{ $visible: boolean }>`
+  font-family: 'Univa Nova', sans-serif;
+  font-size: 0.9375rem;
+  font-style: italic;
+  color: rgba(0, 255, 136, 0.55);
+  max-width: 520px;
+  margin: 24px auto 0;
+  line-height: 1.7;
+  opacity: ${p => (p.$visible ? 1 : 0)};
+  transition: opacity 1.4s ease-out 0.6s;
+`;
+
 /* ─── Component ─── */
 
 const Challenge: React.FC = () => {
@@ -274,6 +351,7 @@ const Challenge: React.FC = () => {
   const { ref: introRef, isIntersecting: introVisible } = useIntersection({ threshold: 0.1 });
   const [step, setStep] = useState(-1); // -1 = not started
   const [transitioning, setTransitioning] = useState(false);
+  const [priorCompletion] = useState(readPriorCompletion);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isComplete = step >= RITUAL_STEPS.length;
@@ -285,6 +363,18 @@ const Challenge: React.FC = () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
+
+  /* Persist completion — the archive remembers the rite across visits. */
+  useEffect(() => {
+    if (!isComplete) return;
+    try {
+      if (localStorage.getItem(RITE_KEY) === null) {
+        localStorage.setItem(RITE_KEY, new Date().toISOString());
+      }
+    } catch {
+      /* storage unavailable (private mode) — reward still shows this session */
+    }
+  }, [isComplete]);
 
   /* Advance the ritual — slow, deliberate pace */
   const handleSigilClick = useCallback(() => {
@@ -310,6 +400,12 @@ const Challenge: React.FC = () => {
           Some thresholds, once crossed, cannot be uncrossed.
           Proceed only if you accept what may follow.
         </IntroText>
+        {priorCompletion && (
+          <ReturnNote $visible={introVisible}>
+            Your designation already appears in the record. The threshold,
+            once crossed, does not close behind you.
+          </ReturnNote>
+        )}
       </IntroSection>
 
       {/* Core ritual zone */}
@@ -323,8 +419,15 @@ const Challenge: React.FC = () => {
             xmlns="http://www.w3.org/2000/svg"
             $active={step >= 0}
             onClick={handleSigilClick}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleSigilClick();
+              }
+            }}
             role="button"
-            aria-label="Activate the sigil"
+            tabIndex={0}
+            aria-label={isComplete ? 'The rite is complete' : 'Activate the sigil'}
           >
             <path fillRule="evenodd" clipRule="evenodd" d={ELDER_SIGN_PATH} />
           </SigilSvg>
@@ -376,6 +479,26 @@ const Challenge: React.FC = () => {
             <WarningLine $visible>
               ⚠ The archive has recorded your interaction.
             </WarningLine>
+
+            <SealedRecord $visible={isComplete}>
+              <SealedEyebrow>Sealed Record — appended to your file</SealedEyebrow>
+              <SealedText>
+                Subject completed the invocation without prompting. Response
+                latency consistent with prior entries. The pattern repeats. It
+                always repeats.
+              </SealedText>
+              <SealedText>
+                What was glimpsed beyond the threshold has not been transcribed
+                here. The few who attempted a description could not agree on its{' '}
+                <Redaction aria-label="redacted">████████</Redaction>, only that
+                it did not appear to regard them at all.
+              </SealedText>
+              <SealedText>
+                The archive does not judge. It does not warn. It merely{' '}
+                <Redaction aria-label="redacted">██████</Redaction> — and keeps
+                the record.
+              </SealedText>
+            </SealedRecord>
           </FinalReveal>
         )}
       </RitualSection>

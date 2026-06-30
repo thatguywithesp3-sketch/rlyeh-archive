@@ -122,6 +122,8 @@ const categoryData = [
       'The Ponape Scripture fragments',
       'Professor Angell\'s final notes',
       'Dream-speech of Wilcox, March 1925',
+      '"It was not dead. It was patient." — field journal, author unidentified',
+      'Marginalia from the Pnakotic fragments — translator unknown',
     ],
   },
   {
@@ -134,6 +136,8 @@ const categoryData = [
       'R\'lyeh stone fragment, recovered 1928',
       'Cult idol from Louisiana swamp raid',
       'Unidentified metallic object, Antarctic expedition',
+      'Wax cylinder recording — 31 seconds, partially degraded',
+      'Hand-drawn star chart matching no recorded sky',
     ],
   },
 ];
@@ -190,6 +194,22 @@ const caseFiles = [
       'Pickman\'s sketches were later cross-referenced with cult materials and dream journals. The overlap was deemed significant by the Miskatonic University archive.',
     ],
     notes: 'Subject\'s remains were never recovered from the institution. Case file transferred to Miskatonic special collections, 1931.',
+  },
+  {
+    id: 'case-signal',
+    reference: 'DOC-1928-PST',
+    classification: 'SIGNAL',
+    status: 'OPEN — INDEFINITE',
+    title: 'The Pacific Transmission',
+    date: '1928',
+    location: '47°9′S 126°43′W',
+    summary: 'A repeating low-frequency pulse logged from a position in the South Pacific where charts record only open ocean.',
+    findings: [
+      'A research vessel recorded a repeating low-frequency pulse rising from the seabed at coordinates where the charts show nothing but open water. The interval between pulses did not vary. It does not vary now.',
+      'Three crew members transcribed the pattern independently. Two transcriptions matched exactly. The third contained a fourth █████████ the others had not heard, and the man could not afterward explain how he had known to write it down.',
+      'Triangulation placed the source below the floor of the trench — beneath the rock, not upon it. The expedition was recalled within the week. The signal was not.',
+    ],
+    notes: 'The coordinates correspond to no surveyed structure. The Archive maintains the listening station regardless. It has not been switched off since installation. It is not certain that it could be.',
   },
 ];
 
