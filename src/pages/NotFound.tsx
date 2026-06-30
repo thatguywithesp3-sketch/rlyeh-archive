@@ -21,7 +21,7 @@ const Main = styled.main`
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: clamp(160px, 26vh, 280px) 24px clamp(60px, 10vh, 120px);
+  padding: clamp(160px, 26vh, 280px) 12px clamp(60px, 10vh, 120px);
 `;
 
 const Code = styled.p`

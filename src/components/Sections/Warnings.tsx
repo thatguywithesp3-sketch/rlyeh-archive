@@ -9,7 +9,7 @@ const Section = styled.section`
   isolation: isolate;
 
   @media (max-width: 768px) {
-    padding: 60px 20px;
+    padding: 60px 12px;
   }
 `;
 

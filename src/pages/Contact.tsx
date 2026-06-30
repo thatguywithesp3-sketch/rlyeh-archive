@@ -30,7 +30,7 @@ const Page = styled.div`
 `;
 
 const Hero = styled.section`
-  padding: clamp(140px, 22vh, 240px) 24px clamp(32px, 5vh, 64px);
+  padding: clamp(140px, 22vh, 240px) 12px clamp(32px, 5vh, 64px);
   text-align: center;
   max-width: 760px;
   margin: 0 auto;
@@ -74,7 +74,7 @@ const Intro = styled.p<{ $visible: boolean }>`
 const FormWrapper = styled.section`
   max-width: 680px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 12px;
 `;
 
 const Form = styled.form`
@@ -85,6 +85,10 @@ const Form = styled.form`
   border-radius: 4px;
   background: rgba(10, 12, 11, 0.6);
   padding: clamp(28px, 5vw, 48px);
+
+  @media (max-width: 768px) {
+    padding: 28px 12px;
+  }
 `;
 
 const Field = styled.div`
@@ -208,6 +212,10 @@ const Confirmation = styled.div`
   background: rgba(0, 255, 136, 0.03);
   padding: clamp(40px, 7vw, 72px) 28px;
   animation: ${fadeIn} 0.8s ease-out both;
+
+  @media (max-width: 768px) {
+    padding: 40px 12px;
+  }
 `;
 
 const ConfirmGlyph = styled.div`

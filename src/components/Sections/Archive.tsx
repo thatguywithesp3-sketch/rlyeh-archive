@@ -29,7 +29,7 @@ const BOOK_LINKS = [
 
 const Section = styled.section<{ $transparentBg?: boolean }>`
   min-height: 90vh;
-  padding: clamp(120px, 18vh, 220px) 16px clamp(80px, 12vh, 160px);
+  padding: clamp(120px, 18vh, 220px) 12px clamp(80px, 12vh, 160px);
   position: relative;
   isolation: isolate;
 `;

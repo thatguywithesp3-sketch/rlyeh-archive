@@ -72,7 +72,7 @@ const Section = styled.section`
   overflow: hidden;
   
   @media (max-width: 768px) {
-    padding: 60px 20px;
+    padding: 60px 12px;
   }
 `;
 
@@ -104,7 +104,7 @@ const MainContainer = styled.div<{ $isVisible: boolean }>`
   
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
-    padding: 20px 24px;
+    padding: 20px 12px;
   }
 `;
 

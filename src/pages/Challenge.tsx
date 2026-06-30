@@ -64,7 +64,7 @@ const Page = styled.div`
 /* ─── Hero / Intro ─── */
 
 const IntroSection = styled.section`
-  padding: clamp(140px, 20vh, 240px) 16px clamp(40px, 6vh, 80px);
+  padding: clamp(140px, 20vh, 240px) 12px clamp(40px, 6vh, 80px);
   text-align: center;
   position: relative;
   z-index: 1;
@@ -111,7 +111,7 @@ const IntroText = styled.p<{ $visible: boolean }>`
 
 const RitualSection = styled.section`
   position: relative;
-  padding: 60px 16px 120px;
+  padding: 60px 12px 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -282,6 +282,9 @@ const SealedRecord = styled.div<{ $visible: boolean }>`
   margin: 56px auto 0;
   padding: 24px 28px;
   text-align: left;
+  @media (max-width: 768px) {
+    padding: 20px 12px;
+  }
   border: 1px solid rgba(0, 255, 136, 0.18);
   border-left: 2px solid rgba(0, 255, 136, 0.55);
   background: linear-gradient(

@@ -286,7 +286,7 @@ const HeroContent = styled.div`
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 0 16px;
+  padding: 0 12px;
 `;
 
 const HeroTitle = styled.h1<{ $visible: boolean }>`
@@ -494,7 +494,7 @@ const CollapsedContent = styled.div<{ $active: boolean }>`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 0 24px;
+    padding: 0 12px;
     gap: 16px;
   }
 `;
@@ -585,7 +585,7 @@ const ExpandedContent = styled.div<{ $active: boolean }>`
   }
 
   @media (max-width: 768px) {
-    padding: 48px 24px 48px;
+    padding: 48px 12px 48px;
     height: auto;
   }
 `;
@@ -685,7 +685,7 @@ const SymbolsSectionSub = styled.p<{ $visible: boolean }>`
   line-height: 1.7;
   text-align: center;
   max-width: 680px;
-  padding: 0 24px;
+  padding: 0 12px;
   opacity: ${p => (p.$visible ? 1 : 0)};
   transition: opacity 1s ease-out 0.2s;
 `;
@@ -801,7 +801,7 @@ const EdgeFade = styled.div<{ $side: 'left' | 'right' }>`
 const CaptionZone = styled.div`
   text-align: center;
   margin-top: 40px;
-  padding: 0 24px;
+  padding: 0 12px;
   min-height: 120px;
   position: relative;
 `;
@@ -891,7 +891,7 @@ const CarouselCounter = styled.span`
 /* ─── Shared content sections ─── */
 
 const ContentSection = styled.section`
-  padding: 80px 16px 0;
+  padding: 80px 12px 0;
   background: #000000;
   position: relative;
   z-index: 1;

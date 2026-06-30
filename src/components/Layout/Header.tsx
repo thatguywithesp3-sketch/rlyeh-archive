@@ -36,7 +36,7 @@ const Nav = styled.nav`
   box-sizing: border-box;
 
   @media (max-width: 768px) {
-    padding: 0 20px;
+    padding: 0 12px;
   }
 `;
 

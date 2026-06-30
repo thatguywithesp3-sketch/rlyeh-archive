@@ -19,7 +19,7 @@ const eyeGlow = keyframes`
 `;
 
 const Section = styled.div`
-  padding: 80px 16px 120px;
+  padding: 80px 12px 120px;
   min-height: 85vh;
   background: #000000;
   position: relative;
@@ -224,6 +224,10 @@ const StepContent = styled.div`
   padding: 24px 20px;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
   width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 20px 12px;
+  }
 `;
 
 const StepTitle = styled.h3<{ $isActive: boolean }>`

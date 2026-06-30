@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useIntersection } from '../../hooks/useIntersection';
 
 const Section = styled.section<{ $transparent?: boolean }>`
-  padding: 80px 16px;
+  padding: 80px 12px;
   background: ${props => props.$transparent ? 'transparent' : '#0A0A0A'};
   position: relative;
   z-index: ${props => props.$transparent ? 2 : 1};

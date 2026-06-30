@@ -52,7 +52,7 @@ const timelineData: TimelineData[] = [
 
 const Section = styled.section`
   position: relative;
-  padding: 100px 16px;
+  padding: 100px 12px;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -165,6 +165,7 @@ const TimelineCard = styled.div<{ $isActive: boolean; $isVisible: boolean; $dela
     min-width: 100%;
     max-width: 100%;
     min-height: ${props => props.$isActive ? '280px' : '120px'};
+    padding: 24px 12px;
   }
 `;
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const FooterContainer = styled.footer<{ $transparentBg?: boolean }>`
-  padding: 64px 16px 32px;
+  padding: 64px 12px 32px;
   position: relative;
   isolation: isolate;
   border-top: ${props => props.$transparentBg ? 'none' : '1px solid rgba(0, 255, 136, 0.1)'};
