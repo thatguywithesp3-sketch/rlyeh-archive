@@ -199,7 +199,7 @@ export const HeroSection: React.FC<{ embedded?: boolean }> = ({ embedded = false
         opacity: 0,
         y: 48,
         duration: 1.1,
-        ease: 'power3.out',
+        ease: 'rlyehRise',
         stagger: 0.18,
         clearProps: 'transform',
       });

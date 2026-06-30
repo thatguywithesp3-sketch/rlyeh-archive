@@ -8,15 +8,23 @@ import {
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { CustomEase } from 'gsap/CustomEase';
 import { useGSAP } from '@gsap/react';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import Home from './pages/Home';
+import { CursorAura } from './components/UI/CursorAura';
 import './styles/globals.css';
 import './styles/animations.css';
 
 // Register GSAP plugins once for the whole app.
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger, CustomEase);
+
+// Signature motion identity — bespoke easing curves give the site a consistent
+// "flow" (the research finding: engagement comes from easing/rhythm, not
+// complexity). Registered by name so any gsap tween can use ease:'rlyehRise'.
+CustomEase.create('rlyehRise', '0.16, 1, 0.3, 1'); // decisive entrance, soft settle
+CustomEase.create('rlyehGlide', '0.65, 0, 0.35, 1'); // smooth symmetric follow
 
 // Route-level code splitting: Home stays eager (landing page);
 // the rest load on demand to shrink the initial bundle.
@@ -126,6 +134,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <CursorAura />
       <Router basename={import.meta.env.BASE_URL}>
         <ScrollManager lenis={lenisRef} />
         <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000000' }} />}>
