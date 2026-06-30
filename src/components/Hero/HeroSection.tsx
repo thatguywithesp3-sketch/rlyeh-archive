@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { Button } from '../UI/Button';
 import { useParallax } from '../../hooks/useParallax';
 
@@ -103,7 +105,7 @@ const Content = styled.div`
   width: 100%;
 `;
 
-const Title = styled.h1<{ $isVisible: boolean }>`
+const Title = styled.h1`
   font-family: 'UnifrakturCook', serif;
   font-weight: 700;
   font-size: clamp(4rem, 13vw, 7.5rem);
@@ -114,14 +116,18 @@ const Title = styled.h1<{ $isVisible: boolean }>`
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 24px;
-  opacity: ${props => props.$isVisible ? 1 : 0};
-  filter: ${props => props.$isVisible ? 'blur(0px)' : 'blur(20px)'};
-  transition: all 1.5s ease-out;
   position: relative;
   z-index: 2;
-  
+
   /* Glow */
   text-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
+
+  /* Each line animates in independently (GSAP entrance timeline).
+     GSAP manages will-change during the tween, so we don't set it here —
+     a permanent will-change:filter retains a stale blurred composited layer. */
+  .hero-line {
+    display: block;
+  }
 `;
 
 const Subtitle = styled.p<{ $isVisible: boolean }>`
@@ -175,8 +181,31 @@ export const HeroSection: React.FC<{ embedded?: boolean }> = ({ embedded = false
   const [videoError, setVideoError] = useState(false);
   const parallaxOffset = useParallax(0.6);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const fullText = 'Archive of cosmic phenomena and ancient entities';
+
+  // GSAP entrance: stagger the two title lines in. Scoped to the content root
+  // so the `.hero-line` selector can't leak; useGSAP handles cleanup.
+  useGSAP(
+    () => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return; // leave lines at their natural (visible) state
+      // Opacity + y stagger only. We deliberately avoid animating `filter:blur`
+      // here: blurring the gradient (background-clip:text) heading promotes it to
+      // a GPU layer whose blurred raster sticks. clearProps drops the leftover
+      // identity transform so the layer de-promotes and re-rasterizes sharp.
+      gsap.from('.hero-line', {
+        opacity: 0,
+        y: 48,
+        duration: 1.1,
+        ease: 'power3.out',
+        stagger: 0.18,
+        clearProps: 'transform',
+      });
+    },
+    { scope: contentRef }
+  );
 
   useEffect(() => {
     setIsVisible(true);
@@ -218,11 +247,10 @@ export const HeroSection: React.FC<{ embedded?: boolean }> = ({ embedded = false
   }, []);
 
   const heroContent = (
-    <Content>
-        <Title $isVisible={isVisible}>
-          Research into the entity
-          <br />
-          that sleeps beneath the ocean
+    <Content ref={contentRef}>
+        <Title>
+          <span className="hero-line">Research into the entity</span>
+          <span className="hero-line">that sleeps beneath the ocean</span>
         </Title>
         <Subtitle $isVisible={isVisible}>
           {displayedText}

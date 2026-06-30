@@ -6,11 +6,17 @@ import {
   useLocation,
 } from 'react-router-dom';
 import Lenis from 'lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import Home from './pages/Home';
 import './styles/globals.css';
 import './styles/animations.css';
+
+// Register GSAP plugins once for the whole app.
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // Route-level code splitting: Home stays eager (landing page);
 // the rest load on demand to shrink the initial bundle.
@@ -102,15 +108,17 @@ function App() {
     });
     lenisRef.current = lenis;
 
-    let rafId = 0;
-    function raf(time: number) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
+    // Drive Lenis from GSAP's ticker and keep ScrollTrigger in sync with the
+    // smooth-scroll position (the GSAP-recommended Lenis integration). This
+    // replaces the hand-rolled requestAnimationFrame loop.
+    lenis.on('scroll', ScrollTrigger.update);
+    const tick = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      gsap.ticker.remove(tick);
+      lenis.off('scroll', ScrollTrigger.update);
       lenis.destroy();
       lenisRef.current = null;
     };

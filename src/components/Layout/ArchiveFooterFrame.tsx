@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { useParallax } from '../../hooks/useParallax';
+import { useScrollParallax } from '../../hooks/useScrollParallax';
 import { ArchiveSection } from '../Sections/Archive';
 import { Footer } from './Footer';
 
@@ -15,11 +15,7 @@ const FrameWrapper = styled.section`
   background-color: transparent;
 `;
 
-const BackgroundLayer = styled.div.attrs<{ $offset: number }>((props) => ({
-  style: {
-    transform: `translateY(${props.$offset}px)`,
-  },
-}))<{ $offset: number }>`
+const BackgroundLayer = styled.div`
   position: absolute;
   top: -200px;
   left: 0;
@@ -61,11 +57,12 @@ const ContentWrapper = styled.div`
 `;
 
 export const ArchiveFooterFrame: React.FC = () => {
-  const parallaxOffset = useParallax(0.35);
+  const bgRef = useRef<HTMLDivElement>(null);
+  useScrollParallax(bgRef, { distance: 120 });
 
   return (
     <FrameWrapper>
-      <BackgroundLayer $offset={parallaxOffset} aria-hidden="true" />
+      <BackgroundLayer ref={bgRef} aria-hidden="true" />
       <OverlayLayer aria-hidden="true" />
       <ContentWrapper>
         <ArchiveSection transparentBg />

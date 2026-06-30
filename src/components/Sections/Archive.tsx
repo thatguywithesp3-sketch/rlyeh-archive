@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useIntersection } from '../../hooks/useIntersection';
-import { useParallaxInView } from '../../hooks/useParallaxInView';
+import { useScrollParallax } from '../../hooks/useScrollParallax';
 
 // --- Зображення секції Archive ---
 // Фон за книгами (на весь BooksFrame) — затемнений
@@ -103,7 +103,7 @@ const BooksFrame = styled.div`
 `;
 
 /* Фон за книгами — на всю висоту секції, паралакс як у Hero */
-const BooksFrameBg = styled.div<{ $offset: number }>`
+const BooksFrameBg = styled.div`
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -113,7 +113,6 @@ const BooksFrameBg = styled.div<{ $offset: number }>`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transform: translateY(${(props) => props.$offset}px);
   will-change: transform;
 `;
 
@@ -238,7 +237,9 @@ const HitBox = styled(Link)<{ $left: number; $width: number }>`
 export const ArchiveSection: React.FC<{ transparentBg?: boolean }> = ({ transparentBg }) => {
   const { ref, isIntersecting } = useIntersection({ threshold: 0.1 });
   const [hoveredBook, setHoveredBook] = useState<number | null>(null);
-  const parallaxOffset = useParallaxInView(ref, 0.35);
+  const bgRef = useRef<HTMLDivElement>(null);
+  // Cover background (inset:0): scale up for travel headroom; scrub over the section.
+  useScrollParallax(bgRef, { distance: 60, scale: 1.15, triggerRef: ref });
 
   const highlightOpacity = hoveredBook !== null ? 1 : 0;
   const highlightImageUrl = hoveredBook !== null ? HIGHLIGHT_IMAGES[hoveredBook] : null;
@@ -250,7 +251,7 @@ export const ArchiveSection: React.FC<{ transparentBg?: boolean }> = ({ transpar
           onMouseLeave={() => setHoveredBook(null)}
           aria-label="Archive books"
         >
-          <BooksFrameBg $offset={parallaxOffset} aria-hidden="true" />
+          <BooksFrameBg ref={bgRef} aria-hidden="true" />
           <TopOverlay aria-hidden="true" />
           <BottomOverlay aria-hidden="true" />
           <ImageArea>
