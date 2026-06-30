@@ -1,3 +1,17 @@
+/* ─── Self-hosted Univa Nova ─────────────────────────────────────────────────
+   Font made from Web Fonts (onlinewebfonts.com), licensed CC BY 4.0.
+   Self-hosted (was a render-blocking third-party @import) for performance.
+   Vite rewrites these relative URLs with the correct base path + content hash.
+   ─────────────────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Univa Nova';
+  src: url('../assets/fonts/univa-nova.woff2') format('woff2'),
+       url('../assets/fonts/univa-nova.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ─── Design tokens as CSS custom properties ─────────────────────────────────
    Single source of truth for palette + typography.
    Use these in new code; styled-components that still hard-code values

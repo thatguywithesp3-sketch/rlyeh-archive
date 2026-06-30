@@ -28,7 +28,7 @@ const FallbackImage = styled.div`
   position: absolute;
   inset: -30px;
   z-index: 0;
-  background-image: url('${process.env.PUBLIC_URL || ''}/Images/ctulhu-hero-bg.png');
+  background-image: url('${process.env.PUBLIC_URL || ''}/Images/ctulhu-hero-bg.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -154,7 +154,8 @@ export const HeroAboutSection: React.FC = () => {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster={`${process.env.PUBLIC_URL || ''}/Images/ctulhu-hero-bg.webp`}
           aria-hidden="true"
         >
           <source src={HERO_VIDEO_URL} type="video/mp4" />

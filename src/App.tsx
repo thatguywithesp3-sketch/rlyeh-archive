@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, lazy, Suspense } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,12 +9,15 @@ import Lenis from 'lenis';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import Home from './pages/Home';
-import Challenge from './pages/Challenge';
-import Archive from './pages/Archive';
-import Contact from './pages/Contact';
-import NotFound from './pages/NotFound';
 import './styles/globals.css';
 import './styles/animations.css';
+
+// Route-level code splitting: Home stays eager (landing page);
+// the rest load on demand to shrink the initial bundle.
+const Challenge = lazy(() => import('./pages/Challenge'));
+const Archive = lazy(() => import('./pages/Archive'));
+const Contact = lazy(() => import('./pages/Contact'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 /**
  * Keeps scroll position sane across client-side navigation:
@@ -117,13 +120,15 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router basename={import.meta.env.BASE_URL}>
         <ScrollManager lenis={lenisRef} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/challenge" element={<Challenge />} />
-          <Route path="/archive" element={<Archive />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000000' }} />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/challenge" element={<Challenge />} />
+            <Route path="/archive" element={<Archive />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </Router>
     </ThemeProvider>
   );

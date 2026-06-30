@@ -48,7 +48,7 @@ const BackgroundLayer = styled.div.attrs<{
   bottom: -45px;
   left: -45px;
   z-index: 0;
-  background: url('${process.env.PUBLIC_URL || ''}/Images/interaction-methods-bg.png') center top/cover no-repeat;
+  background: url('${process.env.PUBLIC_URL || ''}/Images/interaction-methods-bg.webp') center top/cover no-repeat;
   will-change: transform, opacity, filter;
   transition: transform 0.15s ease-out, filter 0.5s ease-out, opacity 0.4s ease-out;
   
@@ -276,7 +276,7 @@ const steps = [
     number: '01',
     title: 'Preparation',
     description: 'Rituals and symbols, required materials, psychological preparation for contact.',
-    image: `${process.env.PUBLIC_URL || ''}/Images/preparation-bg.png`,
+    image: `${process.env.PUBLIC_URL || ''}/Images/preparation-bg.webp`,
     details: [
       'Ritual preparation begins no less than seven days prior to contact. Required materials vary by account, but recurring elements include a circle of salt, objects of personal significance placed at cardinal points, and complete sensory isolation.',
       'The practitioner\'s psychological state at the time of contact appears to be a primary determinant of outcome. Several accounts note that prior trauma or fragmented identity may amplify the entity\'s influence beyond safe parameters.',
@@ -287,7 +287,7 @@ const steps = [
     number: '02',
     title: 'Contact through dreams',
     description: 'Techniques for entering the state, role of the subconscious, safety of the interaction process.',
-    image: `${process.env.PUBLIC_URL || ''}/Images/contact through dreams-bg.png`,
+    image: `${process.env.PUBLIC_URL || ''}/Images/contact through dreams-bg.webp`,
     details: [
       'Contact occurs during the threshold state between wakefulness and sleep — specifically during the hypnagogic phase, where the conscious mind retains partial awareness. Deliberate entry into this state reduces the risk of complete psychic dissolution.',
       'The entity does not speak in words recognisable to the waking mind. Communication appears to operate through impression, symbol, and an overwhelming sense of spatial wrongness.',
@@ -298,7 +298,7 @@ const steps = [
     number: '03',
     title: 'Subconscious and languages',
     description: 'Ancient languages, symbols and their meanings, communication protocols with the entity.',
-    image: `${process.env.PUBLIC_URL || ''}/Images/subconscious and languages-bg.png`,
+    image: `${process.env.PUBLIC_URL || ''}/Images/subconscious and languages-bg.webp`,
     details: [
       'R\'lyehan — the closest designation given to the entity\'s communication mode — does not follow phonological or syntactic rules compatible with any known human language family. Linguistic analysis suggests a grammar oriented around spatial rather than temporal relations.',
       'Sensitives who have achieved partial translation report that meaning is not carried by individual symbols or sounds, but by their relational arrangement. Meaning arrives complete, without the processing stage that human cognition normally requires.',
@@ -309,7 +309,7 @@ const steps = [
     number: '04',
     title: 'Phrases and formulae',
     description: 'Key phrases, correct pronunciation, sequence of actions for establishing contact.',
-    image: `${process.env.PUBLIC_URL || ''}/Images/phrases and formulae-bg.png`,
+    image: `${process.env.PUBLIC_URL || ''}/Images/phrases and formulae-bg.webp`,
     details: [
       '"Ph\'nglui mglw\'nafh Cthulhu R\'lyeh wgah\'nagl fhtagn" — translated approximately as "In his house at R\'lyeh, dead Cthulhu waits dreaming" — is the most widely documented phrase associated with cult practice. Its function appears to be invocational rather than descriptive.',
       'Pronunciation guides recovered from cult materials emphasise the guttural consonant clusters and nasal resonance over intelligibility. Correct pronunciation is reported to induce perceptible physical sensations in bystanders with no prior exposure to the material.',
@@ -408,11 +408,12 @@ export const InteractionMethods: React.FC = () => {
                 }}
               >
                 {step.image && (
-                  <StepBackgroundImage 
-                    src={step.image.split('/').map((part, i, arr) => 
+                  <StepBackgroundImage
+                    src={step.image.split('/').map((part, i, arr) =>
                       i === arr.length - 1 ? encodeURIComponent(part) : part
-                    ).join('/')} 
+                    ).join('/')}
                     alt=""
+                    loading="lazy"
                     $isActive={isActive}
                     onError={(e) => {
                       // Hide the layer if its background image fails to load.

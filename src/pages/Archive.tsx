@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Header } from '../components/Layout/Header';
 import { Footer } from '../components/Layout/Footer';
 import { useIntersection } from '../hooks/useIntersection';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 const PUBLIC = process.env.PUBLIC_URL || '';
 const ARCHIVE_VIDEO = `${PUBLIC}/videos/archive_hero_bg.mp4`;
@@ -12,9 +13,9 @@ const ARCHIVE_VIDEO = `${PUBLIC}/videos/archive_hero_bg.mp4`;
    ═══════════════════════════════════════════════ */
 
 const ERA_IMAGES = [
-  `${PUBLIC}/Images/before%20humanity%20-%20bg.png`,
-  `${PUBLIC}/Images/ancient%20times%20-%20bg.png`,
-  `${PUBLIC}/Images/present%20day%20-%20bg.png`,
+  `${PUBLIC}/Images/before%20humanity%20-%20bg.webp`,
+  `${PUBLIC}/Images/ancient%20times%20-%20bg.webp`,
+  `${PUBLIC}/Images/present%20day%20-%20bg.webp`,
 ];
 
 interface EraRecord {
@@ -82,31 +83,31 @@ const SYMBOLS: SymbolEntry[] = [
     id: 'elder-sign',
     title: 'The Elder Sign',
     description: 'Protective ward against the Old Ones. Found etched into stone thresholds and burial markers across disparate civilizations.',
-    image: `${PUBLIC}/Images/The_Elder_Sign%20%E2%80%94%20protective_ward_against_the_Old_Ones_img.png`,
+    image: `${PUBLIC}/Images/The_Elder_Sign%20%E2%80%94%20protective_ward_against_the_Old_Ones_img.webp`,
   },
   {
     id: 'star-glyph',
     title: 'Star-Shaped Glyph',
     description: 'Central sigil of Cthulhu cultists. Appears in ritual carvings, dream journals, and the walls of submerged structures.',
-    image: `${PUBLIC}/Images/Star-shaped_glyph_of_Cthulhu_cultists_img.png`,
+    image: `${PUBLIC}/Images/Star-shaped_glyph_of_Cthulhu_cultists_img.webp`,
   },
   {
     id: 'rlyeh-cipher',
     title: 'R\'lyeh Cipher Fragments',
     description: 'Geometric patterns recovered from deep-sea expeditions. Resist mathematical classification and induce unease upon prolonged study.',
-    image: `${PUBLIC}/Images/R%27lyeh_geometric_cipher_fragments_img.png`,
+    image: `${PUBLIC}/Images/R%27lyeh_geometric_cipher_fragments_img.webp`,
   },
   {
     id: 'dagon-marks',
     title: 'Dagon Worship Marks',
     description: 'Found in Innsmouth and surrounding coastal settlements. Linked to deep one contact rituals and tidal ceremonies.',
-    image: `${PUBLIC}/Images/Dagon_worship_marks_found_in_Innsmouth_img.png`,
+    image: `${PUBLIC}/Images/Dagon_worship_marks_found_in_Innsmouth_img.webp`,
   },
   {
     id: 'dream-symbols',
     title: 'Dream-State Symbols',
     description: 'Recorded by sensitives under controlled observation. Recurring motifs correlate with seismic activity near Pacific coordinates.',
-    image: `${PUBLIC}/Images/Dream-state_symbols_recorded_by_sensitives_img.png`,
+    image: `${PUBLIC}/Images/Dream-state_symbols_recorded_by_sensitives_img.webp`,
   },
 ];
 
@@ -1065,6 +1066,12 @@ const CaseNotes = styled.p`
    ═══════════════════════════════════════════════ */
 
 const Archive: React.FC = () => {
+  useDocumentMeta({
+    title: "Archive — R'LYEH ARCHIVE",
+    description:
+      'Classified chronology, recovered symbols, catalogued artifacts, and case files documenting contact with the entity that sleeps beneath the ocean.',
+  });
+
   const { ref: heroRef, isIntersecting: heroVisible } = useIntersection({ threshold: 0.1 });
   const { ref: symRef, isIntersecting: symVisible } = useIntersection({ threshold: 0.05 });
   const { ref: catRef, isIntersecting: catVisible } = useIntersection({ threshold: 0.05 });
@@ -1130,7 +1137,7 @@ const Archive: React.FC = () => {
 
       {/* ─── Hero — fullscreen video ─── */}
       <HeroSection ref={heroRef}>
-        <HeroBgVideo autoPlay loop muted playsInline preload="auto" aria-hidden="true">
+        <HeroBgVideo autoPlay loop muted playsInline preload="metadata" poster={`${PUBLIC}/Images/archive_hero_bg.webp`} aria-hidden="true">
           <source src={ARCHIVE_VIDEO} type="video/mp4" />
         </HeroBgVideo>
         <HeroDarkOverlay />

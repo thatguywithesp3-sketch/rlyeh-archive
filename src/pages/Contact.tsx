@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { Header } from '../components/Layout/Header';
 import { Footer } from '../components/Layout/Footer';
 import { useIntersection } from '../hooks/useIntersection';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 /* ═══════════════════════════════════════════════
    CLASSIFICATION OPTIONS
@@ -288,6 +289,12 @@ const makeReference = (form: FormState): string => {
 };
 
 const Contact: React.FC = () => {
+  useDocumentMeta({
+    title: "Submit Testimony — R'LYEH ARCHIVE",
+    description:
+      'File your account of dreams, sightings, artifacts, or contact. Submissions are catalogued under provisional classification by the archive.',
+  });
+
   const { ref, isIntersecting } = useIntersection({ threshold: 0.1 });
   const [form, setForm] = useState<FormState>(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});

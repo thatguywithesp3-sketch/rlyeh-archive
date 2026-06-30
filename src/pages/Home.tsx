@@ -8,6 +8,7 @@ import { InteractionMethods } from '../components/Sections/InteractionMethods';
 import { Warnings } from '../components/Sections/Warnings';
 import { ArchiveFooterFrame } from '../components/Layout/ArchiveFooterFrame';
 import { IntroScreen } from '../components/IntroScreen';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 const PageContainer = styled.div<{ $visible: boolean }>`
   min-height: 100vh;
@@ -25,6 +26,12 @@ const Anchor = styled.div`
 const INTRO_SHOWN_KEY = 'rlyeh_intro_shown';
 
 const Home: React.FC = () => {
+  useDocumentMeta({
+    title: "R'LYEH ARCHIVE — Cthulhu Research",
+    description:
+      "A research archive of cosmic phenomena and ancient entities. Cthulhu research, classified case files, symbols, and dream-contact records.",
+  });
+
   /* Show intro only on first visit per session (not on in-app navigation) */
   const alreadyShown = sessionStorage.getItem(INTRO_SHOWN_KEY) === '1';
   const [introComplete, setIntroComplete] = useState(alreadyShown);

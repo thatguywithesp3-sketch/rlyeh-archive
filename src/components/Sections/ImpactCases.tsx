@@ -30,7 +30,7 @@ const casesData: CaseData[] = [
     category: 'dreams',
     categoryLabel: 'DREAMS',
     date: '1925',
-    image: `${process.env.PUBLIC_URL || ''}/Images/Portland%20dream%20series%20Img.png`,
+    image: `${process.env.PUBLIC_URL || ''}/Images/Portland%20dream%20series%20Img.webp`,
   },
   {
     id: 'cult',
@@ -45,7 +45,7 @@ const casesData: CaseData[] = [
     category: 'cults',
     categoryLabel: 'CULTS',
     date: '1926',
-    image: `${process.env.PUBLIC_URL || ''}/Images/New%20England%20cult%20Img.png`,
+    image: `${process.env.PUBLIC_URL || ''}/Images/New%20England%20cult%20Img.webp`,
   },
   {
     id: 'artist',
@@ -60,7 +60,7 @@ const casesData: CaseData[] = [
     category: 'madness',
     categoryLabel: 'MADNESS',
     date: '1927',
-    image: `${process.env.PUBLIC_URL || ''}/Images/Artist%20psychological%20breakdown%20Img.png`,
+    image: `${process.env.PUBLIC_URL || ''}/Images/Artist%20psychological%20breakdown%20Img.webp`,
   },
 ];
 
@@ -448,6 +448,7 @@ export const ImpactCases: React.FC = () => {
                 key={caseItem.id}
                 src={caseItem.image}
                 alt={caseItem.title}
+                loading="lazy"
                 $isVisible={activeIndex === index}
               />
             ))}

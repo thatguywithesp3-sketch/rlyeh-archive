@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { Header } from '../components/Layout/Header';
 import { Footer } from '../components/Layout/Footer';
 import { useIntersection } from '../hooks/useIntersection';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 /* ─── Elder Sign SVG path (from public/elder sign.svg) ─── */
 const ELDER_SIGN_PATH =
@@ -264,6 +265,12 @@ const WarningLine = styled.p<{ $visible: boolean }>`
 /* ─── Component ─── */
 
 const Challenge: React.FC = () => {
+  useDocumentMeta({
+    title: "The Challenge — R'LYEH ARCHIVE",
+    description:
+      'Trace the Elder Sign and speak the ritual. A step-by-step invocation drawn from the cult materials held in the archive. Proceed at your own risk.',
+  });
+
   const { ref: introRef, isIntersecting: introVisible } = useIntersection({ threshold: 0.1 });
   const [step, setStep] = useState(-1); // -1 = not started
   const [transitioning, setTransitioning] = useState(false);

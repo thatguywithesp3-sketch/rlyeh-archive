@@ -4,7 +4,7 @@ import { useParallax } from '../../hooks/useParallax';
 import { ArchiveSection } from '../Sections/Archive';
 import { Footer } from './Footer';
 
-const FRAME_BG_URL = `${process.env.PUBLIC_URL || ''}/Images/archive_hero_bg.png`;
+const FRAME_BG_URL = `${process.env.PUBLIC_URL || ''}/Images/archive_hero_bg.webp`;
 
 const FrameWrapper = styled.section`
   position: relative;

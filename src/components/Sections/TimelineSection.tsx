@@ -17,7 +17,7 @@ const timelineData: TimelineData[] = [
     title: 'Before Humanity',
     subtitle: 'Arrival of Cthulhu and the Old Ones on Earth',
     description: 'Millions of years before the first humans walked the Earth, cosmic entities descended from the stars. The Old Ones established their dominion over the primordial world, building cyclopean cities of impossible geometry.',
-    bgImage: `${process.env.PUBLIC_URL || ''}/Images/before%20humanity%20-%20bg.png`,
+    bgImage: `${process.env.PUBLIC_URL || ''}/Images/before%20humanity%20-%20bg.webp`,
     details: [
       'Long before the emergence of human civilization, the Earth was not the silent, indifferent sphere we assume it to have been. Fragmented records, recovered from forbidden translations and disputed archaeological interpretations, suggest that other entities — vast, ancient, and wholly alien — once dominated this world.',
       'These beings, referred to in scattered sources as the Old Ones, are described not as visitors, but as primordial occupants. Cyclopean structures, geometrically inconsistent with known terrestrial design, are attributed to their presence. The purpose of such constructions remains unknown.',
@@ -29,7 +29,7 @@ const timelineData: TimelineData[] = [
     title: 'Ancient Times',
     subtitle: 'Construction of R\'lyeh and establishment of influence',
     description: 'The great city of R\'lyeh rose from the depths of the Pacific Ocean. Within its non-Euclidean walls, Cthulhu slumbers, waiting for the stars to align once more.',
-    bgImage: `${process.env.PUBLIC_URL || ''}/Images/ancient%20times%20-%20bg.png`,
+    bgImage: `${process.env.PUBLIC_URL || ''}/Images/ancient%20times%20-%20bg.webp`,
     details: [
       'Early mythological systems, when examined without the bias of modern rationalism, reveal striking structural similarities across distant cultures. Symbols, deities, and cosmological motifs exhibit correlations that defy conventional explanations of parallel development.',
       "Certain suppressed manuscripts and esoteric commentaries describe an era of direct influence — a period during which humanity's perception of divinity may have been shaped by external intelligences. The construction of impossible cities, most notably the submerged R'lyeh, is repeatedly cited in disputed accounts.",
@@ -41,7 +41,7 @@ const timelineData: TimelineData[] = [
     title: 'Present Day',
     subtitle: 'Slumbering state and influence through dreams',
     description: 'Though physically dormant, Cthulhu\'s psychic influence reaches across the globe. Sensitive minds receive fragmented visions, artists create disturbing works, and cults gather in secret worship.',
-    bgImage: `${process.env.PUBLIC_URL || ''}/Images/present%20day%20-%20bg.png`,
+    bgImage: `${process.env.PUBLIC_URL || ''}/Images/present%20day%20-%20bg.webp`,
     details: [
       'Contemporary documentation offers no verifiable confirmation of the entities described in pre-modern sources. Nevertheless, reports of anomalous experiences, recurring dream motifs, and psychological disturbances linked to specific symbols continue to surface.',
       'Particularly notable are cases involving individuals with no prior exposure to the associated mythologies. Patterns observed in these accounts suggest the persistence of influences operating beyond conventional sensory channels.',

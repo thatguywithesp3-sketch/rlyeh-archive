@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Header } from '../components/Layout/Header';
 import { Footer } from '../components/Layout/Footer';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
 
 const Page = styled.div`
   min-height: 100vh;
@@ -81,7 +82,13 @@ const HomeLink = styled(Link)`
   }
 `;
 
-const NotFound: React.FC = () => (
+const NotFound: React.FC = () => {
+  useDocumentMeta({
+    title: "Record Not Found — R'LYEH ARCHIVE",
+    description: 'This fragment of the Archive has sunk beyond recovery.',
+  });
+
+  return (
   <Page>
     <Header />
     <Main>
@@ -95,6 +102,7 @@ const NotFound: React.FC = () => (
     </Main>
     <Footer />
   </Page>
-);
+  );
+};
 
 export default NotFound;

@@ -4,12 +4,12 @@ import styled, { keyframes, css } from 'styled-components';
 /* ─── Slide images ─── */
 const PUBLIC = process.env.PUBLIC_URL || '';
 const SLIDES = [
-  `${PUBLIC}/Images/Slide 1.png`,
-  `${PUBLIC}/Images/Slide 2.png`,
-  `${PUBLIC}/Images/Slide 3.jpg`,
-  `${PUBLIC}/Images/Slide 4.png`,
-  `${PUBLIC}/Images/Slide 5.png`,
-  `${PUBLIC}/Images/Slide 6.png`,
+  `${PUBLIC}/Images/Slide 1.webp`,
+  `${PUBLIC}/Images/Slide 2.webp`,
+  `${PUBLIC}/Images/Slide 3.webp`,
+  `${PUBLIC}/Images/Slide 4.webp`,
+  `${PUBLIC}/Images/Slide 5.webp`,
+  `${PUBLIC}/Images/Slide 6.webp`,
   `${PUBLIC}/Images/Slide 7.webp`,
 ];
 

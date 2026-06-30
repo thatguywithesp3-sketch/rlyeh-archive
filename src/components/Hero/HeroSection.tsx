@@ -252,7 +252,8 @@ export const HeroSection: React.FC<{ embedded?: boolean }> = ({ embedded = false
         loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
+        poster={`${process.env.PUBLIC_URL || ''}/Images/ctulhu-hero-bg.webp`}
         aria-hidden="true"
       >
         <source src={HERO_VIDEO_URL} type="video/mp4" />
@@ -262,7 +263,7 @@ export const HeroSection: React.FC<{ embedded?: boolean }> = ({ embedded = false
           position: 'absolute',
           inset: 0,
           zIndex: 0,
-          backgroundImage: `url('${process.env.PUBLIC_URL || ''}/Images/ctulhu-hero-bg.png')`,
+          backgroundImage: `url('${process.env.PUBLIC_URL || ''}/Images/ctulhu-hero-bg.webp')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }} />

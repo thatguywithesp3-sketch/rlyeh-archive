@@ -6,15 +6,15 @@ import { useParallaxInView } from '../../hooks/useParallaxInView';
 
 // --- Зображення секції Archive ---
 // Фон за книгами (на весь BooksFrame) — затемнений
-const ARCHIVE_FRAME_BG = `${process.env.PUBLIC_URL || ''}/Images/archive-bg2.png`;
+const ARCHIVE_FRAME_BG = `${process.env.PUBLIC_URL || ''}/Images/archive-bg2.webp`;
 // Default image: усі 4 книги на полиці, без підсвітки
-const DEFAULT_IMAGE = `${process.env.PUBLIC_URL || ''}/Images/archive-bg.png`;
+const DEFAULT_IMAGE = `${process.env.PUBLIC_URL || ''}/Images/archive-bg.webp`;
 // Highlight images: по одному зображенню на книгу (книга з мʼякою зеленою підсвіткою)
 const HIGHLIGHT_IMAGES = [
-  `${process.env.PUBLIC_URL || ''}/Images/symbols-highlighted.png`,
-  `${process.env.PUBLIC_URL || ''}/Images/quotations-highlighted.png`,
-  `${process.env.PUBLIC_URL || ''}/Images/artifacts-highlighted.png`,
-  `${process.env.PUBLIC_URL || ''}/Images/documents-highlighted.png`,
+  `${process.env.PUBLIC_URL || ''}/Images/symbols-highlighted.webp`,
+  `${process.env.PUBLIC_URL || ''}/Images/quotations-highlighted.webp`,
+  `${process.env.PUBLIC_URL || ''}/Images/artifacts-highlighted.webp`,
+  `${process.env.PUBLIC_URL || ''}/Images/documents-highlighted.webp`,
 ];
 
 /* Зображення 3998×2100 px — пропорції для ImageArea */
