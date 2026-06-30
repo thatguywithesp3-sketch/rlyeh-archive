@@ -288,6 +288,14 @@ const makeReference = (form: FormState): string => {
   return `DOC-${year}-${tag}-${n}`;
 };
 
+/* Web3Forms — delivers submissions to the maintainer's inbox (works on static
+   hosting; the access key is public/client-safe by design). Set via env var, or
+   paste the key as the fallback below. When unset, the form keeps its in-browser
+   confirmation and transmits nothing. */
+const WEB3FORMS_ACCESS_KEY =
+  (import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined) || '';
+const WEB3FORMS_ENABLED = WEB3FORMS_ACCESS_KEY.length > 0;
+
 const Contact: React.FC = () => {
   useDocumentMeta({
     title: "Submit Testimony — R'LYEH ARCHIVE",
@@ -299,6 +307,8 @@ const Contact: React.FC = () => {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [submitted, setSubmitted] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const update =
     (key: keyof FormState) =>
@@ -322,17 +332,53 @@ const Contact: React.FC = () => {
     return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
-    // Static front-end only: no transmission leaves the browser.
-    setSubmitted(makeReference(form));
+    if (!validate() || submitting) return;
+
+    const reference = makeReference(form);
+
+    // No key configured → preserve the original in-browser-only behaviour.
+    if (!WEB3FORMS_ENABLED) {
+      setSubmitted(reference);
+      return;
+    }
+
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `R'LYEH ARCHIVE — ${form.classification || 'anomaly'} (${reference})`,
+          from_name: form.designation || 'Anonymous correspondent',
+          reference,
+          designation: form.designation || '(none)',
+          return_channel: form.channel || '(none)',
+          classification: form.classification,
+          testimony: form.testimony,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(reference);
+      } else {
+        setSubmitError('The transmission was refused. Try again in a moment.');
+      }
+    } catch {
+      setSubmitError('The connection faltered. Check your network and try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const reset = () => {
     setForm(EMPTY);
     setErrors({});
     setSubmitted(null);
+    setSubmitError(null);
   };
 
   return (
@@ -426,11 +472,15 @@ const Contact: React.FC = () => {
                 {errors.testimony && <FieldError>{errors.testimony}</FieldError>}
               </Field>
 
-              <SubmitButton type="submit">Seal &amp; Submit</SubmitButton>
+              {submitError && <FieldError role="alert">{submitError}</FieldError>}
+              <SubmitButton type="submit" disabled={submitting}>
+                {submitting ? 'Sealing…' : 'Seal & Submit'}
+              </SubmitButton>
             </Form>
             <Disclaimer>
-              This is a fictional archive. Submissions are processed entirely in
-              your browser and are not transmitted or stored anywhere.
+              {WEB3FORMS_ENABLED
+                ? 'This is a fictional archive. Your account is sent privately to the maintainer for review — share only what you are comfortable disclosing.'
+                : 'This is a fictional archive. Submissions are processed entirely in your browser and are not transmitted or stored anywhere.'}
             </Disclaimer>
           </>
         )}

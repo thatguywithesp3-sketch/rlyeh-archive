@@ -10,6 +10,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CustomEase } from 'gsap/CustomEase';
 import { useGSAP } from '@gsap/react';
+import { inject as injectAnalytics } from '@vercel/analytics';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import Home from './pages/Home';
@@ -25,6 +26,11 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, CustomEase);
 // complexity). Registered by name so any gsap tween can use ease:'rlyehRise'.
 CustomEase.create('rlyehRise', '0.16, 1, 0.3, 1'); // decisive entrance, soft settle
 CustomEase.create('rlyehGlide', '0.65, 0, 0.35, 1'); // smooth symmetric follow
+
+// Vercel Web Analytics — framework-agnostic inject (no React hooks, avoids the
+// duplicate-React issue with the <Analytics/> component under Vite). Active only
+// on the Vercel deployment; a harmless no-op elsewhere.
+injectAnalytics();
 
 // Route-level code splitting: Home stays eager (landing page);
 // the rest load on demand to shrink the initial bundle.
